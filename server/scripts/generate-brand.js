@@ -19,10 +19,10 @@ const MARKS = [
     name: "logo.png",
     prompt:
       "Minimalist geometric app logo icon: a stylized butterfly roof — the mid-century modern architectural silhouette of two roof planes meeting in a low V-shape at the middle, wings angled up and outward like a shallow bird in flight. Palm Springs desert modernism aesthetic. " +
-      "Solid warm construction orange color (Pantone 165). " +
+      "Bright warm cream / off-white color (#F5EBDD) so it reads clearly on a dark charcoal UI. " +
       "TRANSPARENT BACKGROUND — output must be a PNG with an alpha channel, background pixels fully transparent (alpha=0). No solid background of any color. No colored fill outside the mark itself. No frame, no border, no circle, no rounded rectangle behind the mark. " +
       "Flat vector style, single color mark, no gradient, no shadow, no text, no letters. " +
-      "Centered composition, square canvas, symmetric.",
+      "Thick strong strokes that read at 32x32 pixels. Centered composition, square canvas, symmetric.",
   },
   {
     name: "favicon.png",

@@ -36,5 +36,11 @@ export function useProjectsList() {
     return data.project;
   }, [load]);
 
-  return { projects, loading, error, reload: load, create };
+  const remove = useCallback(async (id) => {
+    const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error((await res.json()).error || res.statusText);
+    await load();
+  }, [load]);
+
+  return { projects, loading, error, reload: load, create, remove };
 }

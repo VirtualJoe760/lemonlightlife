@@ -43,7 +43,7 @@ function NavItem({ item, onNavigate, collapsed }) {
 
 export default function Sidebar({ mobile = false, onClose, collapsed = false, onToggleCollapse }) {
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/70 backdrop-blur-xl px-3 pb-4">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/80 backdrop-blur-xl px-3 pb-4">
       <div className={cn("flex h-16 shrink-0 items-center", collapsed ? "justify-center" : "justify-between px-2")}>
         <div className={cn("flex items-center gap-2", collapsed && "gap-0")}>
           <img

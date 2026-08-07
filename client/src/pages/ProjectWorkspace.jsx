@@ -265,7 +265,7 @@ export default function ProjectWorkspace() {
         {/* Chat column */}
         <div className="flex flex-col overflow-hidden">
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 lg:px-8">
-            <div className="mx-auto max-w-3xl space-y-5">
+            <div className="mx-auto max-w-2xl space-y-5">
               <BriefHeader project={project} />
               {chat.messages.map((m, i) => (
                 <div key={i}>
@@ -295,7 +295,7 @@ export default function ProjectWorkspace() {
             onSubmit={submit}
             className="border-t border-white/5 bg-background/95 px-4 py-3 backdrop-blur lg:px-8"
           >
-            <div className="mx-auto max-w-3xl flex items-end gap-2">
+            <div className="mx-auto max-w-2xl flex items-end gap-2">
               <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

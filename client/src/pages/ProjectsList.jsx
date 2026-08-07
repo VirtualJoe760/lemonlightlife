@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FolderKanban, Plus, Users, Send, MessageSquare, ArrowRight, Clock } from "lucide-react";
+import { FolderKanban, Plus, Users, Send, MessageSquare, ArrowRight, Clock, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProjectsList } from "@/hooks/useProjectsList";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,7 @@ const STATUS_META = {
   archived:  { label: "Archived",         color: "text-muted-foreground bg-white/5", icon: FolderKanban },
 };
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, onDelete }) {
   const meta = STATUS_META[project.status] || STATUS_META.brief;
   const Icon = meta.icon;
   const briefText = project.brief?.what || "No description yet";
@@ -21,12 +21,28 @@ function ProjectCard({ project }) {
   const total = (project.crewRoster || []).reduce((s, r) => s + r.count, 0);
   const filled = (project.crewRoster || []).reduce((s, r) => s + Math.min((r.filled?.length || 0), r.count), 0);
 
+  function handleDelete(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (window.confirm(`Delete "${project.name || "Untitled project"}"?`)) {
+      onDelete?.(project._id);
+    }
+  }
+
   return (
     <Link
       to={`/projects/${project._id}`}
-      className="group flex flex-col rounded-xl border border-white/5 bg-card/60 backdrop-blur p-5 transition-colors hover:border-primary/40 hover:bg-card/80"
+      className="group relative flex flex-col rounded-xl border border-white/5 bg-card/60 backdrop-blur p-5 transition-colors hover:border-primary/40 hover:bg-card/80"
     >
-      <div className="flex items-start justify-between gap-3 mb-2">
+      <button
+        type="button"
+        onClick={handleDelete}
+        className="absolute top-3 right-3 rounded-md p-1.5 text-muted-foreground opacity-0 transition-opacity hover:bg-destructive/15 hover:text-destructive group-hover:opacity-100 focus:opacity-100"
+        aria-label={`Delete ${project.name}`}
+      >
+        <Trash2 className="size-4" />
+      </button>
+      <div className="flex items-start justify-between gap-3 mb-2 pr-8">
         <h3 className="text-lg font-normal tracking-tight leading-snug line-clamp-2">
           {project.name || "Untitled project"}
         </h3>
@@ -69,9 +85,14 @@ function ProjectCard({ project }) {
 }
 
 export default function ProjectsList() {
-  const { projects, loading, create } = useProjectsList();
+  const { projects, loading, create, remove } = useProjectsList();
   const navigate = useNavigate();
   const [creating, setCreating] = useState(false);
+
+  async function handleDelete(id) {
+    try { await remove(id); }
+    catch (err) { alert(err.message || "Failed to delete"); }
+  }
 
   async function handleCreate() {
     if (creating) return;
@@ -123,7 +144,7 @@ export default function ProjectsList() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
-            <ProjectCard key={project._id} project={project} />
+            <ProjectCard key={project._id} project={project} onDelete={handleDelete} />
           ))}
         </div>
       )}
