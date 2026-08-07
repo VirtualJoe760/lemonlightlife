@@ -12,6 +12,12 @@
     "smoke": "npm --prefix server run smoke",
     "install:all": "npm install && npm --prefix server install && npm --prefix client install"
   },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "openai": "^4.65.0"
+  },
   "devDependencies": {
     "concurrently": "^9.0.1"
   }
