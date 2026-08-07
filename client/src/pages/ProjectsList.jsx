@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FolderKanban, Plus, Users, Send, MessageSquare, ArrowRight, Clock, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProjectsList } from "@/hooks/useProjectsList";
+import AlertModal from "@/components/AlertModal";
 import { cn } from "@/lib/utils";
 
 const STATUS_META = {
@@ -88,10 +89,11 @@ export default function ProjectsList() {
   const { projects, loading, create, remove } = useProjectsList();
   const navigate = useNavigate();
   const [creating, setCreating] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(null);
 
   async function handleDelete(id) {
     try { await remove(id); }
-    catch (err) { alert(err.message || "Failed to delete"); }
+    catch (err) { setAlertMsg(err.message || "Failed to delete"); }
   }
 
   async function handleCreate() {
@@ -101,7 +103,7 @@ export default function ProjectsList() {
       const project = await create();
       navigate(`/projects/${project._id}`);
     } catch (err) {
-      alert(err.message || "Failed to create project");
+      setAlertMsg(err.message || "Failed to create project");
       setCreating(false);
     }
   }
@@ -148,6 +150,12 @@ export default function ProjectsList() {
           ))}
         </div>
       )}
+      <AlertModal
+        open={!!alertMsg}
+        onClose={() => setAlertMsg(null)}
+        title="Something went wrong"
+        message={alertMsg}
+      />
     </div>
   );
 }
