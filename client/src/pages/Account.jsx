@@ -1,4 +1,4 @@
-import { UserCircle, MapPin, Phone, Mail } from "lucide-react";
+import { UserCircle, MapPin, Phone, Mail, IdCard } from "lucide-react";
 
 export default function Account() {
   return (
@@ -10,12 +10,12 @@ export default function Account() {
 
       <div className="mt-8 rounded-lg border border-border bg-card p-6">
         <div className="flex items-center gap-4">
-          <div className="flex size-16 items-center justify-center rounded-full bg-primary/15 text-primary">
-            <UserCircle className="size-10" />
+          <div className="flex size-16 items-center justify-center rounded-full bg-primary/15 text-primary text-xl font-semibold">
+            JS
           </div>
           <div>
-            <div className="text-lg font-semibold">General Contractor</div>
-            <div className="text-sm text-muted-foreground">Sardella Construction LLC</div>
+            <div className="text-lg font-semibold">Joseph Sardella</div>
+            <div className="text-sm text-muted-foreground">General Contractor</div>
           </div>
         </div>
 
@@ -28,15 +28,15 @@ export default function Account() {
           <div className="flex items-center gap-2">
             <Phone className="size-4 text-muted-foreground" />
             <dt className="sr-only">Phone</dt>
-            <dd>(555) 555-0100</dd>
+            <dd>(760) 555-0142</dd>
           </div>
           <div className="flex items-center gap-2">
             <Mail className="size-4 text-muted-foreground" />
             <dt className="sr-only">Email</dt>
-            <dd>gc@example.com</dd>
+            <dd>joseph@sardella-construction.example</dd>
           </div>
           <div className="flex items-center gap-2">
-            <UserCircle className="size-4 text-muted-foreground" />
+            <IdCard className="size-4 text-muted-foreground" />
             <dt className="sr-only">License</dt>
             <dd>CSLB #1234567</dd>
           </div>

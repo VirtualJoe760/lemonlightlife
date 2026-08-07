@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { HardHat, Home, MessageSquare, Users, FolderKanban, UserCircle, X } from "lucide-react";
+import { Home, MessageSquare, Users, FolderKanban, UserCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -45,8 +45,8 @@ export default function Sidebar({ mobile = false, onClose }) {
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center justify-between">
         <div className="flex items-center gap-2">
-          <HardHat className="size-6 text-primary" />
-          <span className="font-bold tracking-tight">Matchmaker</span>
+          <img src="/logo.png" alt="" className="size-7 rounded" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+          <span className="font-bold tracking-tight">Kristel Match</span>
         </div>
         {mobile && (
           <button
@@ -75,11 +75,11 @@ export default function Sidebar({ mobile = false, onClose }) {
           <li className="mt-auto -mx-2">
             <div className="flex items-center gap-3 rounded-md p-2 text-sm">
               <div className="flex size-8 items-center justify-center rounded-full bg-primary/15 text-primary font-semibold">
-                GC
+                JS
               </div>
               <div className="min-w-0">
-                <div className="truncate font-semibold">General Contractor</div>
-                <div className="truncate text-xs text-muted-foreground">Southern California</div>
+                <div className="truncate font-semibold">Joseph Sardella</div>
+                <div className="truncate text-xs text-muted-foreground">General Contractor</div>
               </div>
             </div>
           </li>

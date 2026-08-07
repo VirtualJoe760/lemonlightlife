@@ -1,6 +1,6 @@
-# AGENTS.md — Construction Matchmaker
+# AGENTS.md — Kristel Match
 
-Crew-matching micro-app for general contractors. Trial project for Lemonlight.
+Crew-matching micro-app for general contractors in Southern California. Trial project for Lemonlight. Named for **William Krisel**, the Palm Springs mid-century architect who popularized the butterfly roof across the Coachella Valley. Brand direction: mid-century modern, warm oranges, desert warmth, clean geometric marks (butterfly roof silhouette in the logo + favicon).
 
 ## Brief requirements (must haves)
 
