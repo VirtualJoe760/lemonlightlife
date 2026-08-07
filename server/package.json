@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=../.env --env-file=../.env.local src/index.js",
+    "start": "node --env-file=../.env --env-file=../.env.local src/index.js",
+    "seed": "node --env-file=../.env --env-file=../.env.local scripts/seed.js",
+    "smoke": "node --env-file=../.env --env-file=../.env.local scripts/smoke.js",
+    "generate-headshots": "node --env-file=../.env --env-file=../.env.local scripts/generate-headshots.js",
+    "generate-mockups": "node --env-file=../.env --env-file=../.env.local scripts/generate-mockups.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.3",
+    "@google/genai": "^2.16.0",
+    "construction-matchmaker": "file:..",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "openai": "^4.65.0"
+  }
+}
