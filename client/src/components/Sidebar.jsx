@@ -18,7 +18,7 @@ function NavItem({ item, onNavigate }) {
       onClick={onNavigate}
       className={({ isActive }) =>
         cn(
-          "group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold transition-colors",
+          "group flex items-center gap-x-3 rounded-md p-2 text-sm font-medium transition-colors",
           isActive
             ? "bg-primary/10 text-primary"
             : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -46,7 +46,7 @@ export default function Sidebar({ mobile = false, onClose }) {
       <div className="flex h-16 shrink-0 items-center justify-between">
         <div className="flex items-center gap-2">
           <img src="/logo.png" alt="" className="size-7 rounded" onError={(e) => { e.currentTarget.style.display = "none"; }} />
-          <span className="font-bold tracking-tight">Kristel Match</span>
+          <span className="font-medium tracking-tight text-base">Kristel Match</span>
         </div>
         {mobile && (
           <button

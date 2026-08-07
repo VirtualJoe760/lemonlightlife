@@ -4,69 +4,86 @@
 
 @layer base {
   :root {
-    --background: 60 9% 98%;
-    --foreground: 20 14% 4%;
+    /* Palm Springs at night — warm dark charcoal with cream text + orange accent. */
+    --background: 24 12% 7%;
+    --foreground: 30 20% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 20 14% 4%;
+    --card: 24 10% 10%;
+    --card-foreground: 30 20% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 14% 4%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 30 20% 92%;
 
-    --primary: 24 95% 43%;
-    --primary-foreground: 60 9% 98%;
+    --primary: 24 95% 55%;
+    --primary-foreground: 24 12% 7%;
 
-    --secondary: 60 4% 96%;
-    --secondary-foreground: 24 10% 10%;
+    --secondary: 24 8% 14%;
+    --secondary-foreground: 30 20% 92%;
 
-    --muted: 60 4% 96%;
-    --muted-foreground: 25 5% 45%;
+    --muted: 24 8% 14%;
+    --muted-foreground: 30 8% 65%;
 
-    --accent: 60 4% 96%;
-    --accent-foreground: 24 10% 10%;
+    --accent: 24 8% 18%;
+    --accent-foreground: 30 20% 92%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 60 9% 98%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 30 20% 92%;
 
-    --success: 158 84% 30%;
-    --success-foreground: 60 9% 98%;
+    --success: 158 55% 55%;
+    --success-foreground: 24 12% 7%;
 
-    --border: 20 6% 90%;
-    --input: 20 6% 90%;
-    --ring: 24 95% 43%;
+    --warning: 40 92% 62%;
+    --warning-foreground: 24 12% 7%;
+
+    --border: 24 8% 16%;
+    --input: 24 8% 16%;
+    --ring: 24 95% 55%;
 
     --radius: 0.5rem;
   }
 
+  /* Preserve a .dark class for API compat, but our default IS dark. */
   .dark {
-    --background: 20 14% 4%;
-    --foreground: 60 9% 98%;
-    --card: 20 14% 6%;
-    --card-foreground: 60 9% 98%;
-    --popover: 20 14% 6%;
-    --popover-foreground: 60 9% 98%;
-    --primary: 24 95% 53%;
-    --primary-foreground: 20 14% 4%;
-    --secondary: 12 6% 15%;
-    --secondary-foreground: 60 9% 98%;
-    --muted: 12 6% 15%;
-    --muted-foreground: 24 5% 65%;
-    --accent: 12 6% 15%;
-    --accent-foreground: 60 9% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 60 9% 98%;
-    --success: 158 64% 40%;
-    --success-foreground: 60 9% 98%;
-    --border: 12 6% 15%;
-    --input: 12 6% 15%;
-    --ring: 24 95% 53%;
+    --background: 24 12% 7%;
+    --foreground: 30 20% 92%;
+    --card: 24 10% 10%;
+    --card-foreground: 30 20% 92%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 30 20% 92%;
+    --primary: 24 95% 55%;
+    --primary-foreground: 24 12% 7%;
+    --secondary: 24 8% 14%;
+    --secondary-foreground: 30 20% 92%;
+    --muted: 24 8% 14%;
+    --muted-foreground: 30 8% 65%;
+    --accent: 24 8% 18%;
+    --accent-foreground: 30 20% 92%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 30 20% 92%;
+    --success: 158 55% 55%;
+    --success-foreground: 24 12% 7%;
+
+    --warning: 40 92% 62%;
+    --warning-foreground: 24 12% 7%;
+    --border: 24 8% 16%;
+    --input: 24 8% 16%;
+    --ring: 24 95% 55%;
   }
 }
 
 @layer base {
   * { @apply border-border; }
+  html {
+    font-family: "Jost", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    font-weight: 400;
+  }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.005em;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.02em;
   }
 }

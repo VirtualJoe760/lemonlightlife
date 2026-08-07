@@ -28,7 +28,7 @@ export default function Home() {
           </div>
         </div>
 
-        <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight text-balance">
+        <h1 className="text-5xl sm:text-7xl font-light tracking-tight text-balance">
           Find the right crew for every job.
         </h1>
 

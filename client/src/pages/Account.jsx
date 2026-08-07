@@ -3,7 +3,7 @@ import { UserCircle, MapPin, Phone, Mail, IdCard } from "lucide-react";
 export default function Account() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16 lg:px-8">
-      <h1 className="text-3xl font-semibold tracking-tight">Account</h1>
+      <h1 className="text-3xl font-light tracking-tight">Account</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         Auth is out of scope for this trial. Static demo profile below.
       </p>

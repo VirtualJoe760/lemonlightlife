@@ -37,18 +37,18 @@ export default function SubcontractorCard({ crew, index = 0 }) {
         <img
           src={crew.headshotUrl}
           alt={`${crew.name} — ${crew.roles?.[0] || "subcontractor"}`}
-          className="aspect-[3/2] w-full rounded-2xl object-cover ring-1 ring-black/5"
+          className="aspect-[3/2] w-full rounded-2xl object-cover ring-1 ring-white/10"
           loading="lazy"
         />
       ) : (
-        <div className="aspect-[3/2] w-full rounded-2xl bg-muted flex items-center justify-center ring-1 ring-black/5">
+        <div className="aspect-[3/2] w-full rounded-2xl bg-muted flex items-center justify-center ring-1 ring-white/10">
           <HardHat className="size-10 text-muted-foreground/50" />
         </div>
       )}
 
       <div className="mt-4 flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-semibold tracking-tight">{crew.name}</h3>
+          <h3 className="font-medium tracking-tight text-base">{crew.name}</h3>
           <p className="text-sm text-muted-foreground capitalize">
             {crew.roles?.join(" · ")}
           </p>

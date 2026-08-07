@@ -9,7 +9,7 @@ export default function Projects() {
         <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
           <FolderKanban className="size-7" />
         </div>
-        <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
+        <h1 className="text-3xl font-light tracking-tight">Projects</h1>
         <p className="mt-3 max-w-xl text-muted-foreground">
           Save chat sessions as projects, track which crew you've selected, and continue where you left off. Out of scope for this trial build — the plumbing to persist chat sessions (<code className="rounded bg-muted px-1 py-0.5 text-xs">ChatLog</code>) is in place and would power this view.
         </p>

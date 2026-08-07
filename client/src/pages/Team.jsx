@@ -31,7 +31,7 @@ export default function Team() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
       <div className="mx-auto max-w-2xl lg:mx-0">
-        <h1 className="text-4xl font-semibold tracking-tight text-pretty sm:text-5xl">
+        <h1 className="text-4xl font-light tracking-tight text-pretty sm:text-5xl">
           Our team
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
