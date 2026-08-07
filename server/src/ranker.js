@@ -21,10 +21,13 @@ const WEIGHTS = {
   rating: 0.15,
 };
 
+const STATE_NORMALIZE = { california: "CA", ca: "CA" };
+
 function resolveLocation(location) {
   if (!location?.city) return null;
   const wantCity = location.city.trim().toLowerCase();
-  const wantState = (location.state || "CA").trim().toUpperCase();
+  const rawState = String(location.state || "CA").trim().toLowerCase();
+  const wantState = STATE_NORMALIZE[rawState] || rawState.toUpperCase().slice(0, 2);
   const match = CITIES.find(
     (c) => c.city.toLowerCase() === wantCity && c.state === wantState
   );
