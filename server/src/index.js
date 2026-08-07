@@ -4,6 +4,7 @@ import { connectDB } from "./db.js";
 import searchRouter from "./routes/search.js";
 import chatRouter from "./routes/chat.js";
 import subcontractorsRouter from "./routes/subcontractors.js";
+import projectsRouter from "./routes/projects.js";
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api", searchRouter);
 app.use("/api", chatRouter);
 app.use("/api", subcontractorsRouter);
+app.use("/api", projectsRouter);
 
 const PORT = process.env.PORT || 3001;
 

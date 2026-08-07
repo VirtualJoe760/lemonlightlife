@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { Home, MessageSquare, Users, FolderKanban, UserCircle, X, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { Home, Users, FolderKanban, UserCircle, X, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { name: "Home",     href: "/",         icon: Home },
-  { name: "Chat",     href: "/chat",     icon: MessageSquare },
-  { name: "Team",     href: "/team",     icon: Users },
   { name: "Projects", href: "/projects", icon: FolderKanban },
+  { name: "Team",     href: "/team",     icon: Users },
   { name: "Account",  href: "/account",  icon: UserCircle },
 ];
 

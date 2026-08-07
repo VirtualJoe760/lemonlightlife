@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <Button size="lg" asChild>
-            <Link to="/chat">
+            <Link to="/projects">
               Get Started <ArrowRight className="size-4" />
             </Link>
           </Button>
