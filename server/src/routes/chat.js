@@ -116,7 +116,19 @@ const PROPOSE_ROSTER_TOOL = {
   type: "function",
   function: {
     name: "propose_crew_roster",
-    description: "Once you have enough project detail (at minimum the 'what'), propose the crew composition. One entry per trade needed; count usually 1.",
+    description:
+      "Once you have enough project detail (at minimum the 'what'), propose the crew composition. " +
+      "CRITICAL: most residential construction projects need MULTIPLE trades — do NOT under-propose. " +
+      "Reference examples of standard trade sets:\n" +
+      " - Bathroom remodel: plumber, electrician, tile, drywall, painter (5 trades)\n" +
+      " - Kitchen remodel: plumber, electrician, carpenter, tile, painter, cabinet (6 trades)\n" +
+      " - Kitchen rewire (electrical only): electrician (1 trade)\n" +
+      " - Reroof: roofer, gutter (2 trades)\n" +
+      " - New room addition: carpenter, electrician, plumber (if applicable), drywall, painter, flooring (5-6 trades)\n" +
+      " - Deck build: carpenter, painter (2 trades)\n" +
+      " - Whole-home HVAC swap: hvac, electrician (2 trades)\n" +
+      "Think through EVERY trade a general contractor would actually need to hire for this specific job. " +
+      "One entry per trade. count is usually 1; use 2+ only when the scope clearly justifies it (large square footage, tight deadline, etc).",
     parameters: {
       type: "object",
       properties: {

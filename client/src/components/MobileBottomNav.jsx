@@ -12,8 +12,8 @@ const ITEMS = [
 export default function MobileBottomNav() {
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/5 bg-card/80 backdrop-blur-xl lg:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 backdrop-blur-2xl lg:hidden"
+      style={{ backgroundColor: "rgba(28, 25, 23, 0.8)", paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <ul className="flex items-stretch justify-around">
         {ITEMS.map((item) => (

@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useProject } from "@/hooks/useProject";
 import SubcontractorCard from "@/components/SubcontractorCard";
 import InvitationModal from "@/components/InvitationModal";
+import AlertModal from "@/components/AlertModal";
 import { CITIES } from "../../../shared/cities.js";
 import { cn } from "@/lib/utils";
 
@@ -84,6 +85,7 @@ export default function ProjectWorkspace() {
   const [candidatesByRole, setCandidatesByRole] = useState({});
   const [invitationSummary, setInvitationSummary] = useState(null);
   const [sending, setSending] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(null);
 
   // Hydrate form from project when it loads
   useEffect(() => {
@@ -163,16 +165,11 @@ export default function ProjectWorkspace() {
       const fresh = await fetch(`/api/projects/${id}`).then((r) => r.json());
       const roster = fresh.project?.crewRoster || [];
 
-      // For each role, fetch candidates via /api/search
+      // For each role, fetch candidates directly by role — reliable + fast
+      // (avoids LLM parser variance from /api/search)
       const searches = await Promise.all(
         roster.map((slot) =>
-          fetch("/api/search", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              description: `Need a ${slot.role} in ${city} for a ${what}. ${slot.reason}`,
-            }),
-          })
+          fetch(`/api/subcontractors?role=${encodeURIComponent(slot.role)}&limit=6`)
             .then((r) => r.json())
             .then((data) => [slot.role, data.results || []])
         )
@@ -194,7 +191,7 @@ export default function ProjectWorkspace() {
       setInvitationSummary(summary);
       setStep(4);
     } catch (err) {
-      alert(err.message || "Failed to send invitations");
+      setAlertMsg(err.message || "Failed to send invitations");
     } finally {
       setSending(false);
     }
@@ -371,12 +368,21 @@ export default function ProjectWorkspace() {
                       </p>
                     </div>
                   </div>
-                  {allFilled && (
-                    <Button onClick={handleSendInvites} disabled={sending} size="lg">
+                  <div className="flex flex-col items-end gap-1">
+                    <Button
+                      onClick={handleSendInvites}
+                      disabled={!allFilled || sending}
+                      size="lg"
+                    >
                       <Send className="size-4" />
                       {sending ? "Sending…" : "Send invitations"}
                     </Button>
-                  )}
+                    {!allFilled && total > 0 && (
+                      <span className="text-xs text-muted-foreground">
+                        Select {total - filled} more to enable
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {rosterLoading && (
@@ -425,7 +431,7 @@ export default function ProjectWorkspace() {
                                       try {
                                         if (isSelected) await deselectCrew(slot.role, crew._id);
                                         else await selectCrew(slot.role, crew._id);
-                                      } catch (err) { alert(err.message); }
+                                      } catch (err) { setAlertMsg(err.message); }
                                     }}
                                     disabled={disabled}
                                     variant={isSelected ? "secondary" : "default"}
@@ -474,6 +480,12 @@ export default function ProjectWorkspace() {
         onClose={() => setInvitationSummary(null)}
         projectName={project?.name}
         summary={invitationSummary}
+      />
+      <AlertModal
+        open={!!alertMsg}
+        onClose={() => setAlertMsg(null)}
+        title="Something went wrong"
+        message={alertMsg}
       />
     </div>
   );

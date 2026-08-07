@@ -44,7 +44,7 @@ function NavItem({ item, onNavigate, collapsed }) {
 
 export default function Sidebar({ mobile = false, onClose, collapsed = false, onToggleCollapse }) {
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/80 backdrop-blur-xl px-3 pb-4">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/10 backdrop-blur-2xl px-3 pb-4" style={{ backgroundColor: "rgba(28, 25, 23, 0.8)" }}>
       <div className={cn("relative shrink-0 h-16 flex items-center", collapsed ? "justify-center" : "px-2 gap-2.5")}>
         <Logo className={cn("text-foreground shrink-0", collapsed ? "size-9" : "size-10")} />
         {!collapsed && (
