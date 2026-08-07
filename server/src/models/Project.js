@@ -12,6 +12,7 @@ const BriefSchema = new mongoose.Schema(
       default: null,
     },
     what: { type: String, default: null },
+    startDateTime: { type: Date, default: null },
     budget: {
       type: String,
       enum: ["under-1k", "1-5k", "5-25k", "25k+", null],

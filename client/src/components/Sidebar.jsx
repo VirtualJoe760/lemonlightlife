@@ -45,16 +45,10 @@ function NavItem({ item, onNavigate, collapsed }) {
 export default function Sidebar({ mobile = false, onClose, collapsed = false, onToggleCollapse }) {
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/80 backdrop-blur-xl px-3 pb-4">
-      <div className={cn("relative shrink-0 pt-4", collapsed ? "flex justify-center" : "px-1")}>
-        {collapsed ? (
-          <Logo className="w-10 text-foreground" />
-        ) : (
-          <div className="flex flex-col gap-1">
-            <Logo className="w-full text-foreground" />
-            <span className="pl-1 font-normal tracking-tight text-sm text-muted-foreground">
-              Kristel Match
-            </span>
-          </div>
+      <div className={cn("relative shrink-0 h-16 flex items-center", collapsed ? "justify-center" : "px-2 gap-2")}>
+        <Logo className={cn("text-foreground", collapsed ? "h-6 w-auto" : "h-6 w-auto")} />
+        {!collapsed && (
+          <span className="font-normal tracking-tight text-base">Kristel Match</span>
         )}
         {mobile && (
           <button
