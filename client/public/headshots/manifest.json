@@ -1,5 +1,15 @@
 [
   {
+    "file": "cabinet-female-02.png",
+    "role": "cabinet",
+    "gender": "female"
+  },
+  {
+    "file": "cabinet-male-01.png",
+    "role": "cabinet",
+    "gender": "male"
+  },
+  {
     "file": "carpenter-female-02.png",
     "role": "carpenter",
     "gender": "female"
@@ -20,8 +30,173 @@
     "gender": "male"
   },
   {
+    "file": "drywall-male-01.png",
+    "role": "drywall",
+    "gender": "male"
+  },
+  {
+    "file": "drywall-male-02.png",
+    "role": "drywall",
+    "gender": "male"
+  },
+  {
+    "file": "electrician-female-02.png",
+    "role": "electrician",
+    "gender": "female"
+  },
+  {
     "file": "electrician-male-01.png",
     "role": "electrician",
+    "gender": "male"
+  },
+  {
+    "file": "electrician-male-03.png",
+    "role": "electrician",
+    "gender": "male"
+  },
+  {
+    "file": "electrician-male-04.png",
+    "role": "electrician",
+    "gender": "male"
+  },
+  {
+    "file": "flooring-female-02.png",
+    "role": "flooring",
+    "gender": "female"
+  },
+  {
+    "file": "flooring-male-01.png",
+    "role": "flooring",
+    "gender": "male"
+  },
+  {
+    "file": "hvac-female-01.png",
+    "role": "hvac",
+    "gender": "female"
+  },
+  {
+    "file": "hvac-male-02.png",
+    "role": "hvac",
+    "gender": "male"
+  },
+  {
+    "file": "hvac-male-03.png",
+    "role": "hvac",
+    "gender": "male"
+  },
+  {
+    "file": "laborer-male-01.png",
+    "role": "laborer",
+    "gender": "male"
+  },
+  {
+    "file": "laborer-male-02.png",
+    "role": "laborer",
+    "gender": "male"
+  },
+  {
+    "file": "laborer-male-03.png",
+    "role": "laborer",
+    "gender": "male"
+  },
+  {
+    "file": "landscaper-male-01.png",
+    "role": "landscaper",
+    "gender": "male"
+  },
+  {
+    "file": "mason-male-01.png",
+    "role": "mason",
+    "gender": "male"
+  },
+  {
+    "file": "mason-male-02.png",
+    "role": "mason",
+    "gender": "male"
+  },
+  {
+    "file": "mason-male-03.png",
+    "role": "mason",
+    "gender": "male"
+  },
+  {
+    "file": "painter-female-01.png",
+    "role": "painter",
+    "gender": "female"
+  },
+  {
+    "file": "painter-female-03.png",
+    "role": "painter",
+    "gender": "female"
+  },
+  {
+    "file": "painter-male-02.png",
+    "role": "painter",
+    "gender": "male"
+  },
+  {
+    "file": "plumber-female-02.png",
+    "role": "plumber",
+    "gender": "female"
+  },
+  {
+    "file": "plumber-male-01.png",
+    "role": "plumber",
+    "gender": "male"
+  },
+  {
+    "file": "plumber-male-03.png",
+    "role": "plumber",
+    "gender": "male"
+  },
+  {
+    "file": "roofer-male-01.png",
+    "role": "roofer",
+    "gender": "male"
+  },
+  {
+    "file": "roofer-male-02.png",
+    "role": "roofer",
+    "gender": "male"
+  },
+  {
+    "file": "roofer-male-03.png",
+    "role": "roofer",
+    "gender": "male"
+  },
+  {
+    "file": "supervisor-female-02.png",
+    "role": "supervisor",
+    "gender": "female"
+  },
+  {
+    "file": "supervisor-male-01.png",
+    "role": "supervisor",
+    "gender": "male"
+  },
+  {
+    "file": "supervisor-male-03.png",
+    "role": "supervisor",
+    "gender": "male"
+  },
+  {
+    "file": "tile-female-02.png",
+    "role": "tile",
+    "gender": "female"
+  },
+  {
+    "file": "tile-male-01.png",
+    "role": "tile",
+    "gender": "male"
+  },
+  {
+    "file": "welder-male-01.png",
+    "role": "welder",
+    "gender": "male"
+  },
+  {
+    "file": "welder-male-02.png",
+    "role": "welder",
     "gender": "male"
   }
 ]
