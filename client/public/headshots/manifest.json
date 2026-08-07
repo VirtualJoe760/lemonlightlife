@@ -1,0 +1,27 @@
+[
+  {
+    "file": "carpenter-female-02.png",
+    "role": "carpenter",
+    "gender": "female"
+  },
+  {
+    "file": "carpenter-male-01.png",
+    "role": "carpenter",
+    "gender": "male"
+  },
+  {
+    "file": "carpenter-male-03.png",
+    "role": "carpenter",
+    "gender": "male"
+  },
+  {
+    "file": "carpenter-male-04.png",
+    "role": "carpenter",
+    "gender": "male"
+  },
+  {
+    "file": "electrician-male-01.png",
+    "role": "electrician",
+    "gender": "male"
+  }
+]
