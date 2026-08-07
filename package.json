@@ -2,6 +2,7 @@
   "name": "construction-matchmaker",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "description": "Crew matching micro-app for general contractors (Lemonlight trial).",
   "scripts": {
     "dev": "concurrently -n server,client -c green,cyan \"npm --prefix server run dev\" \"npm --prefix client run dev\"",

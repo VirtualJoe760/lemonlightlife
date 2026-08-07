@@ -1,168 +1,74 @@
 # AGENTS.md — Construction Matchmaker
 
-Canonical context file for anyone (human or agent) working in this repo.
-This is the single source of truth for project shape, workflow, and
-conventions. Deeper architectural detail lives in
-[`/docs/architecture/`](./docs/architecture/README.md).
+Crew-matching micro-app for general contractors. Trial project for Lemonlight.
 
-## What this is
+## Brief requirements (must haves)
 
-A 4-hour timed-trial project for **Lemonlight**. A crew-matching micro-app
-for general contractors: contractor types a one-sentence project
-description → app returns 10 ranked crew matches from a 10,000-person
-MongoDB database, each with an LLM-generated rationale.
+- [x] Node.js/Express API endpoint that accepts a project description, returns structured ranked crew matches
+- [x] Single-page React UI: description input, results list, match rationale
+- [x] 10,000 seeded people in MongoDB, covering construction roles across the industry
+- [x] Persistent logging of search queries + results (for future training/analysis)
+- [x] Search queries complete in a reasonable time (target p95 < 2s)
+- [x] Stored booking status per person; filter unavailable
 
-The build will be demoed and pressed on during a 1-hour interview call. Every
-technical decision must be defensible on latency, cost, and how it would
-evolve past MVP. `/docs/architecture/future-work.md` prepares talking points
-for the "how would you approach X" follow-up questions.
+## Out of scope per the brief (talking points prepared in `docs/architecture/future-work.md`)
+
+Auth · Analytics · Cost optimization · Date/time availability
+
+## User-directed deviations (deliberate; call out on the interview)
+
+- **Geography:** Southern California only (LA / Orange / Riverside incl. Coachella Valley / San Bernardino / San Diego / Imperial) — 10k in one region is realistic density and makes geo scoring actually matter. Brief said "throughout the US"; scope narrowed by user request.
+- **Extra UI pages:** Home / Chat / Team / Projects / Account (with sidebar). Brief noted "other pages beyond crew search" as out of scope; user wanted them for a stronger demo.
+- **Chat endpoint:** `/api/chat` with Groq function calling (LLM invokes a `search_subcontractors` tool) is layered on top of the brief-required `/api/search`. The UI uses `/api/chat`; `/api/search` remains as the direct primitive.
 
 ## Stack
 
 | Layer | Choice |
 |---|---|
-| Frontend | Vite + React (single page, no state library) |
+| Frontend | Vite + React (SPA with server-rendered shell via Express) |
 | Backend | Node 20 + Express + Mongoose |
-| Database | MongoDB Atlas M0 (free), Atlas Search + `2dsphere` |
-| LLM | **Groq** · `openai/gpt-oss-120b`, OpenAI-compatible SDK |
-| Seed | `@faker-js/faker` + curated role/city vocabularies |
-| Dev orchestration | `concurrently` at repo root |
+| Database | MongoDB (local `mongodb://localhost:27017/matchmaker`) |
+| LLM (parse + rationale + tool-calling) | Groq · `openai/gpt-oss-120b` |
+| Images (one-time gen) | Google Gemini · `gemini-3.1-flash-image` |
+| Seed | `@faker-js/faker` + curated SoCal cities + 25 role vocabulary |
+| Styling | Tailwind CSS 3.4 + shadcn/ui + Framer Motion |
 
-Env-var contract (see `.env.example`):
+## Env — only `.env.local` (never `.env`, never `.env.example`)
 
-- `MONGODB_URI` — Atlas connection string
+Server scripts pass `--env-file=../.env.local`. Add new vars directly to that file (gitignored).
+
+- `MONGODB_URI` — Mongo connection string
 - `GROQ_API_KEY` — Groq bearer token
-- `GROQ_BASE_URL` — defaults to `https://api.groq.com/openai/v1`
-- `GROQ_MODEL` — defaults to `openai/gpt-oss-120b`
-- `PORT` — server port, defaults to 3001
+- `GEMINI_API_KEY` — only needed for `generate-headshots` / `generate-mockups`
+- Optional: `GROQ_BASE_URL`, `GROQ_MODEL`, `PORT` (defaults in `server/src/llm.js` + `server/src/index.js`)
 
-## Repo layout
-
-```
-F:\web-clients\lemonlight\
-├── AGENTS.md              # this file
-├── CLAUDE.md              # thin pointer to AGENTS.md
-├── .env                   # gitignored, user-populated
-├── .env.example           # template
-├── .gitignore
-├── package.json           # root — dev scripts, concurrently
-├── docs/
-│   └── architecture/      # full architectural spec
-│       ├── README.md      # index
-│       ├── overview.md
-│       ├── data-model.md
-│       ├── search-flow.md
-│       ├── llm-integration.md
-│       ├── seeding.md
-│       ├── api.md
-│       ├── frontend.md
-│       └── future-work.md
-├── shared/
-│   ├── roles.js           # 25 role vocabulary + skill pools + certs
-│   └── cities.js          # ~100 US cities with lat/lng + population weight
-├── server/
-│   ├── package.json
-│   ├── src/
-│   │   ├── index.js       # Express bootstrap
-│   │   ├── db.js          # Mongoose connect
-│   │   ├── llm.js         # OpenAI SDK factory pointed at Groq
-│   │   ├── models/
-│   │   │   ├── Crew.js
-│   │   │   └── SearchLog.js
-│   │   └── routes/
-│   │       └── search.js  # POST /api/search
-│   └── scripts/
-│       ├── smoke.js       # verify Mongo + Groq
-│       └── seed.js        # generate 10,000 crew records
-└── client/
-    ├── package.json
-    ├── vite.config.js
-    ├── index.html
-    └── src/
-        ├── main.jsx
-        ├── App.jsx
-        └── index.css
-```
-
-## Dev workflow
-
-All commands are run from the repo root (`F:\web-clients\lemonlight`).
+## Dev commands (from repo root)
 
 | Command | What it does |
 |---|---|
-| `npm run install:all` | Installs root + server + client deps |
-| `npm run smoke` | Sanity-checks Mongo + Groq connectivity (~5s) |
-| `npm run seed` | Wipes and reseeds `crew` collection with 10k records (~20s) |
-| `npm run dev` | Runs server (`:3001`) + client (`:5173`) concurrently |
-| `npm run server` | Runs server only |
-| `npm run client` | Runs client only |
+| `npm run install:all` | Install root + server + client deps |
+| `npm run smoke` | Mongo + Groq connectivity check |
+| `npm run seed` | Wipe + reseed subcontractors (10k, ~20s) |
+| `npm run generate-headshots` | Fill `client/public/headshots/` pool (~40 imgs; add `-- --limit N` for a sample) |
+| `npm run generate-mockups` | UI reference mockups to `docs/architecture/ui-references/mockups/` |
+| `npm run dev` | Server (`:3001`) + client (`:5173`) concurrently |
 
-Typical bring-up on a fresh clone:
+## Where things live
 
-```
-cp .env.example .env       # then fill MONGODB_URI + GROQ_API_KEY
-npm run install:all
-npm run smoke              # must pass before proceeding
-npm run seed
-npm run dev
-# → open http://localhost:5173
-```
-
-## Where the meaningful code lives
-
-- **The endpoint that does everything:** `server/src/routes/search.js`.
-  Parse → aggregate → rationale → log. Read this file first.
-- **The prompts:** in the same file. Extracted only if we grow past two.
-- **The data model:** `server/src/models/Crew.js`,
-  `server/src/models/SearchLog.js`.
-- **The vocabularies:** `shared/roles.js` (roles + skills + certs),
-  `shared/cities.js` (geo). Both `imported` by seed and server.
+- `server/src/ranker.js` — the shared scoring function (30% role / 30% specialization level / 25% geo / 15% rating). Used by both `/api/search` and the `search_subcontractors` tool inside `/api/chat`.
+- `server/src/routes/*.js` — endpoint handlers (`search.js`, `chat.js`)
+- `server/src/models/{Subcontractor,SearchLog,ChatLog}.js`
+- `shared/roles.js` + `shared/cities.js` — canonical vocabularies, imported by seed + server
+- `client/src/pages/{Home,Chat,Team,Projects,Account}.jsx`
+- `client/src/components/ui/*` — shadcn primitives
+- `docs/architecture/` — full design; start at `README.md`
+- `docs/architecture/ui-references/` — Tailwind UI paste-ins we're adapting
 
 ## Conventions
 
-- **ES modules** everywhere (`"type": "module"` in server package.json,
-  `.jsx` files client-side).
-- **No dotenv package.** Server scripts use Node's built-in `--env-file=../.env`
-  flag. Version pin: Node 20.6+ required.
-- **No comments explaining WHAT code does.** Comments only for non-obvious
-  WHY (hidden constraints, workarounds, invariants).
-- **Fire-and-forget for `SearchLog.create`.** Logging must never block or
-  fail a search.
-- **Fallbacks over 500s.** LLM errors trigger regex-parser + template
-  rationale, not user-visible failures. Mongo errors trigger a real 503.
-- **Windows paths in tool calls.** Use full absolute paths with drive
-  letter (`F:\web-clients\lemonlight\...`), backslashes OK.
-
-## What's out of scope (per the brief)
-
-- Auth
-- Analytics beyond `SearchLog` persistence
-- Cost optimization
-- Date/time availability
-- Any page beyond crew search
-
-Each of these has an approach section in
-[`/docs/architecture/future-work.md`](./docs/architecture/future-work.md) —
-that's the go-to for the "how would you approach X" interview questions.
-
-## Verification
-
-The end-to-end verification steps live in
-[`/docs/architecture/README.md`](./docs/architecture/README.md) and expand
-each doc's own testing notes. Quick smoke test:
-
-1. `npm run smoke` returns two green lines.
-2. `npm run seed` reports `seeded 10000 crew records`.
-3. `npm run dev`, browser to `http://localhost:5173`, run the demo query
-   `"Need a licensed electrician in Austin for a kitchen rewire tomorrow"`,
-   verify: results in <2s, top match is an electrician near Austin marked
-   `Available`, the "Parsed as" panel shows the structured filter.
-4. In Atlas: `db.searchlogs.find().sort({createdAt:-1}).limit(1)` — verify
-   the query was logged.
-
-## Doc <-> code sync rule
-
-If you change a schema, prompt, endpoint, or the seed distribution, update
-the matching file under `/docs/architecture/` **in the same commit**. Docs
-drift is the enemy — this repo is small enough that keeping it in sync is
-cheap and pays off on the interview call.
+- ES modules everywhere.
+- No comments explaining WHAT code does — only WHY (non-obvious constraints, workarounds, invariants).
+- `SearchLog.create` + `ChatLog.create` fire-and-forget — logging never blocks or fails a response.
+- LLM errors fall back to regex parser + template rationale — no user-visible 500s.
+- Windows absolute paths in tool calls (`F:\web-clients\lemonlight\...`).
+- Change a schema / prompt / endpoint / seed distribution → update the matching file under `docs/architecture/` **in the same commit**.

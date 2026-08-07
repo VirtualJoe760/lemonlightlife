@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=../.env --env-file=../.env.local src/index.js",
-    "start": "node --env-file=../.env --env-file=../.env.local src/index.js",
-    "seed": "node --env-file=../.env --env-file=../.env.local scripts/seed.js",
-    "smoke": "node --env-file=../.env --env-file=../.env.local scripts/smoke.js",
-    "generate-headshots": "node --env-file=../.env --env-file=../.env.local scripts/generate-headshots.js",
-    "generate-mockups": "node --env-file=../.env --env-file=../.env.local scripts/generate-mockups.js"
+    "dev": "node --watch --env-file=../.env.local src/index.js",
+    "start": "node --env-file=../.env.local src/index.js",
+    "seed": "node --env-file=../.env.local scripts/seed.js",
+    "smoke": "node --env-file=../.env.local scripts/smoke.js",
+    "generate-headshots": "node --env-file=../.env.local scripts/generate-headshots.js",
+    "generate-mockups": "node --env-file=../.env.local scripts/generate-mockups.js"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
