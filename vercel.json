@@ -4,6 +4,7 @@
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/((?!api|assets|logo\\.png|favicon\\.png|hero-kristel\\.png|manifest\\.webmanifest|sw\\.js|headshots/.*).*)", "destination": "/index.html" }
   ]
 }
