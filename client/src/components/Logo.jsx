@@ -1,18 +1,15 @@
 /**
- * Kristel Match butterfly-roof mark. Inline SVG — guaranteed transparent,
- * inherits currentColor from the parent so it recolors with the theme.
- *
- * Wide format (roof profile is naturally wider than tall). Use `className`
- * to control width; height auto-scales via preserveAspectRatio.
+ * Kristel Match butterfly-roof mark. Square 256x256 SVG, inline, transparent.
+ * Recolors with currentColor. Size via className (e.g. size-10, size-12).
  */
 export default function Logo({ className = "", ...props }) {
   return (
     <svg
-      viewBox="0 0 240 80"
+      viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       stroke="currentColor"
-      strokeWidth="8"
+      strokeWidth="18"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -20,9 +17,11 @@ export default function Logo({ className = "", ...props }) {
       {...props}
     >
       {/* Butterfly roof: two planes sloping UP from a low central valley */}
-      <path d="M 16 20 L 120 62 L 224 20" />
-      {/* Subtle horizon line under the roof, evokes a low-slung Palm Springs home */}
-      <path d="M 32 72 L 208 72" strokeWidth="4" opacity="0.5" />
+      <path d="M 32 96 L 128 168 L 224 96" />
+      {/* Two subtle vertical posts + a low horizon — mid-century modern silhouette */}
+      <path d="M 64 200 L 64 172" strokeWidth="10" opacity="0.55" />
+      <path d="M 192 200 L 192 172" strokeWidth="10" opacity="0.55" />
+      <path d="M 40 216 L 216 216" strokeWidth="10" opacity="0.55" />
     </svg>
   );
 }

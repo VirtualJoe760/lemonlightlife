@@ -45,8 +45,8 @@ function NavItem({ item, onNavigate, collapsed }) {
 export default function Sidebar({ mobile = false, onClose, collapsed = false, onToggleCollapse }) {
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/80 backdrop-blur-xl px-3 pb-4">
-      <div className={cn("relative shrink-0 h-16 flex items-center", collapsed ? "justify-center" : "px-2 gap-2")}>
-        <Logo className={cn("text-foreground", collapsed ? "h-6 w-auto" : "h-6 w-auto")} />
+      <div className={cn("relative shrink-0 h-16 flex items-center", collapsed ? "justify-center" : "px-2 gap-2.5")}>
+        <Logo className={cn("text-foreground shrink-0", collapsed ? "size-9" : "size-10")} />
         {!collapsed && (
           <span className="font-normal tracking-tight text-base">Kristel Match</span>
         )}
