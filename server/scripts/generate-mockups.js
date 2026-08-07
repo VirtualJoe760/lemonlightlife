@@ -13,8 +13,8 @@ import { GoogleGenAI } from "@google/genai";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(__dirname, "../../docs/architecture/ui-references/mockups");
 
-const IMAGEN_MODEL = "imagen-3.0-generate-002";
-const GEMINI_IMAGE_MODEL = "gemini-2.5-flash-image";
+const IMAGEN_MODEL = "imagen-4.0-fast-generate-001";
+const GEMINI_IMAGE_MODEL = "gemini-3.1-flash-image";
 
 const MOCKUPS = [
   {

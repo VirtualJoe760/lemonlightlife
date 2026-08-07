@@ -18,8 +18,8 @@ import { GoogleGenAI } from "@google/genai";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(__dirname, "../../client/public/headshots");
 
-const IMAGEN_MODEL = "imagen-3.0-generate-002";
-const GEMINI_IMAGE_MODEL = "gemini-2.5-flash-image";
+const IMAGEN_MODEL = "imagen-4.0-fast-generate-001";
+const GEMINI_IMAGE_MODEL = "gemini-3.1-flash-image";
 
 // (role, gender, ethnicity/age descriptors) — 40 total.
 // Broad demographic mix so the demo doesn't look generic.
@@ -119,14 +119,14 @@ async function main() {
   let generatorName = null;
   try {
     console.log(`→ probing ${IMAGEN_MODEL}...`);
-    await generateImagen3(ai, "test prompt");
+    await generateImagen3(ai, "A red apple on a white background, photograph, product shot.");
     generator = (p) => generateImagen3(ai, p);
     generatorName = IMAGEN_MODEL;
   } catch (err) {
     console.log(`  ${IMAGEN_MODEL} unavailable: ${err.message}`);
     console.log(`→ probing ${GEMINI_IMAGE_MODEL}...`);
     try {
-      await generateGeminiImage(ai, "test prompt");
+      await generateGeminiImage(ai, "A red apple on a white background, photograph, product shot.");
       generator = (p) => generateGeminiImage(ai, p);
       generatorName = GEMINI_IMAGE_MODEL;
     } catch (err2) {
@@ -136,18 +136,26 @@ async function main() {
   }
   console.log(`✓ using ${generatorName}\n`);
 
+  // Optional `--limit N` to generate a sample instead of the full pool.
+  const limitIdx = process.argv.indexOf("--limit");
+  const limit = limitIdx !== -1 ? Number(process.argv[limitIdx + 1]) : PLAN.length;
+  const items = PLAN.slice(0, limit);
+  if (items.length < PLAN.length) {
+    console.log(`(sample mode: generating first ${items.length} of ${PLAN.length})\n`);
+  }
+
   let ok = 0;
   let failed = 0;
   const perRole = {};
-  for (let i = 0; i < PLAN.length; i++) {
-    const [role, gender, descriptors] = PLAN[i];
+  for (let i = 0; i < items.length; i++) {
+    const [role, gender, descriptors] = items[i];
     perRole[role] = (perRole[role] || 0) + 1;
     const n = perRole[role];
     const filename = `${role}-${gender}-${String(n).padStart(2, "0")}.png`;
     const outPath = path.join(OUT_DIR, filename);
     try {
       await fs.access(outPath);
-      console.log(`[${i + 1}/${PLAN.length}] skip (exists): ${filename}`);
+      console.log(`[${i + 1}/${items.length}] skip (exists): ${filename}`);
       ok++;
       continue;
     } catch { /* not present, generate */ }
@@ -156,10 +164,10 @@ async function main() {
       const t0 = Date.now();
       const bytes = await generator(promptFor(role, gender, descriptors));
       await fs.writeFile(outPath, bytes);
-      console.log(`[${i + 1}/${PLAN.length}] ${filename} (${Date.now() - t0}ms, ${bytes.length} bytes)`);
+      console.log(`[${i + 1}/${items.length}] ${filename} (${Date.now() - t0}ms, ${bytes.length} bytes)`);
       ok++;
     } catch (err) {
-      console.error(`[${i + 1}/${PLAN.length}] FAILED ${filename}: ${err.message}`);
+      console.error(`[${i + 1}/${items.length}] FAILED ${filename}: ${err.message}`);
       failed++;
     }
   }
