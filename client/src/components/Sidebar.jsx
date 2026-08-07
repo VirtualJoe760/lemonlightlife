@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Home, Users, FolderKanban, UserCircle, X, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 const NAV = [
   { name: "Home",     href: "/",         icon: Home },
@@ -44,23 +45,22 @@ function NavItem({ item, onNavigate, collapsed }) {
 export default function Sidebar({ mobile = false, onClose, collapsed = false, onToggleCollapse }) {
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-white/5 bg-card/80 backdrop-blur-xl px-3 pb-4">
-      <div className={cn("flex h-16 shrink-0 items-center", collapsed ? "justify-center" : "justify-between px-2")}>
-        <div className={cn("flex items-center gap-2", collapsed && "gap-0")}>
-          <img
-            src="/logo.png"
-            alt="Kristel Match"
-            className="size-9 shrink-0 select-none"
-            onError={(e) => { e.currentTarget.style.display = "none"; }}
-          />
-          {!collapsed && (
-            <span className="font-normal tracking-tight text-base">Kristel Match</span>
-          )}
-        </div>
+      <div className={cn("relative shrink-0 pt-4", collapsed ? "flex justify-center" : "px-1")}>
+        {collapsed ? (
+          <Logo className="w-10 text-foreground" />
+        ) : (
+          <div className="flex flex-col gap-1">
+            <Logo className="w-full text-foreground" />
+            <span className="pl-1 font-normal tracking-tight text-sm text-muted-foreground">
+              Kristel Match
+            </span>
+          </div>
+        )}
         {mobile && (
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground"
+            className="absolute top-3 right-1 rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground"
             aria-label="Close sidebar"
           >
             <X className="size-5" />
@@ -70,7 +70,7 @@ export default function Sidebar({ mobile = false, onClose, collapsed = false, on
           <button
             type="button"
             onClick={onToggleCollapse}
-            className="rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground"
+            className="absolute top-3 right-1 rounded-md p-1 text-muted-foreground hover:bg-white/5 hover:text-foreground"
             aria-label="Collapse sidebar"
           >
             <ChevronsLeft className="size-4" />
